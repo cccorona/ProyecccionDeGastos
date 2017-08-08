@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProyecccionDeGastos</string>
+    <string name="title_home">Datos</string>
+    <string name="title_resumen">Resumen</string>
+    <string name="title_data">Data</string>
+    <string name="title_familia">Familia</string>
+
+    <string name="sin_informacion">Sin información</string>
+
+</resources>

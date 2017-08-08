@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#FFF"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Agregar Nombre"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+
+        <EditText
+            android:id="@+id/text_name"
+            android:paddingLeft="20dp"
+            android:hint="Nombre de la persona"
+            android:background="@drawable/roundend"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="40dp" />
+
+
+        <LinearLayout
+
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:id="@+id/male_selector"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/male_button"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/male_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp" />
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:orientation="vertical"
+                android:id="@+id/female_selector"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/female_button"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/female_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#FFF"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Seleccionar genero"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp">
+
+            <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
+                android:layout_centerInParent="true"
+                android:id="@+id/picker"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:max="90"
+                app:pointer_color="@color/colorAccent"
+                app:pointer_halo_color="@color/colorAccent"
+                app:pointer_size="20dp"
+                app:text_color="@color/colorAccent"
+                app:text_size="65sp"
+                app:wheel_active_color="@color/colorAccent"
+                app:wheel_unactive_color="@color/colorAccent"/>
+
+
+        </RelativeLayout>
+        <TextView
+
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#FFF"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Seleccionar edad"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+
+                <Button
+                    android:id="@+id/cancel_button"
+                    android:textStyle="bold"
+                    android:text="Cancelar"
+                    android:textColor="#FFF"
+                    android:background="@color/colorAccent"
+                    android:layout_margin="0dp"
+                    android:padding="0dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:id="@+id/acepter_button"
+                    android:textStyle="bold"
+                    android:textColor="#FFF"
+                    android:text="Aceptar"
+                    android:background="@color/colorAccent"
+                    android:layout_margin="0dp"
+                    android:padding="0dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
