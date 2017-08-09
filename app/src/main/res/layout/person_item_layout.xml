@@ -24,6 +24,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/person_gender"
                 android:layout_gravity="center"
                 android:src="@drawable/female_icon"
                 android:layout_width="60dp"
