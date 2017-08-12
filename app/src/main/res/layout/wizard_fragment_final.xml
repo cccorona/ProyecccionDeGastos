@@ -1,0 +1,158 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:orientation="vertical"
+    tools:context="mx.com.cesarcorona.proyeccciondegastos.activities.MainWizardActivity">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:gravity="center"
+            android:background="@color/colorAccent"
+            android:text="Gracias por usar esta herrmienta"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_gravity="center"
+        android:src="@drawable/ranem2"
+        android:layout_margin="10dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:gravity="center"
+            android:background="@color/colorAccent"
+            android:text="Algun comentario o consejo"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:textSize="16sp"
+        android:gravity="center"
+        android:hint="Comentario"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/white_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:gravity="center|start"
+            android:background="@color/colorAccent"
+            android:text="Eilja una opcion"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/date_proyeccion"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="11/08/2018"
+            android:background="@color/colorPrimaryDark"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="Nueva Proyeccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="Salir"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:keepScreenOn="true"
+        android:text="www.janem.com.mx"
+        android:textColor="#55d5f5"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:keepScreenOn="true"
+        android:text="consulta@janem.com.mx"
+        android:textColor="#55d5f5"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+
+
+    </LinearLayout>

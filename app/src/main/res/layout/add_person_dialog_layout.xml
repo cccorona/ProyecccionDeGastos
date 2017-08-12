@@ -40,7 +40,7 @@
 
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="90dp">
+            android:layout_height="110dp">
 
             <RelativeLayout
                 android:orientation="vertical"
@@ -53,8 +53,20 @@
                     android:id="@+id/male_button"
                     android:layout_centerInParent="true"
                     android:src="@drawable/male_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:id="@+id/tex_gender_male"
+                    android:padding="4dp"
+                    android:text="Hombre"
+                    android:layout_marginTop="0dp"
+                    android:layout_centerInParent="true"
+                    android:layout_below="@+id/male_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
             </RelativeLayout>
@@ -67,9 +79,21 @@
                 <ImageView
                     android:id="@+id/female_button"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/female_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp" />
+                    android:src="@drawable/male_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:id="@+id/tex_gender_female"
+                    android:padding="4dp"
+                    android:text="Mujer"
+                    android:layout_marginTop="0dp"
+                    android:layout_centerInParent="true"
+                    android:layout_below="@+id/female_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
             </RelativeLayout>
@@ -85,7 +109,7 @@
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="Seleccionar genero"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
@@ -100,9 +124,10 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 app:max="90"
+                app:init_position="30"
                 app:pointer_color="@color/colorAccent"
                 app:pointer_halo_color="@color/colorAccent"
-                app:pointer_size="20dp"
+                app:pointer_size="10dp"
                 app:text_color="@color/colorAccent"
                 app:text_size="65sp"
                 app:wheel_active_color="@color/colorAccent"

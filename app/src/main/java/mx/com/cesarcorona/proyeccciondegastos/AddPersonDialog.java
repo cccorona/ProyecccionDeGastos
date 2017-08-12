@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar;
 
@@ -82,11 +83,14 @@ public class AddPersonDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if(personaToAdd == null){
-            personaToAdd = new Persona(5,MALE);
+            personaToAdd = new Persona(30,MALE);
         }
         Dialog fulldialog = new Dialog(getContext(), R.style.FullScreenDialog);
         fulldialog.setContentView(R.layout.add_person_dialog_layout);
         final EditText nameEditText = (EditText) fulldialog.findViewById(R.id.text_name);
+        final TextView maleText = (TextView) fulldialog.findViewById(R.id.tex_gender_male);
+        final TextView femaleText = (TextView) fulldialog.findViewById(R.id.tex_gender_female);
+
         nameEditText.setText(personaToAdd.getName());
         Button cancelarButton = (Button) fulldialog.findViewById(R.id.cancel_button);
         HoloCircleSeekBar  ageSelector = (HoloCircleSeekBar) fulldialog.findViewById(R.id.picker);
@@ -111,14 +115,16 @@ public class AddPersonDialog extends DialogFragment {
         final RelativeLayout maleSelector = (RelativeLayout) fulldialog.findViewById(R.id.male_selector);
         final ImageView maleButton = (ImageView) fulldialog.findViewById(R.id.male_button);
 
-        final RelativeLayout femaleSelector = (RelativeLayout) fulldialog.findViewById(R.id.male_selector);
-        final ImageView femaleButton = (ImageView) fulldialog.findViewById(R.id.male_button);
+        final RelativeLayout femaleSelector = (RelativeLayout) fulldialog.findViewById(R.id.female_selector);
+        final ImageView femaleButton = (ImageView) fulldialog.findViewById(R.id.female_button);
         femaleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 genderSelected = MALE;
                 femaleSelector.setBackgroundResource(R.color.colorAccent);
                 maleSelector.setBackgroundResource(R.color.colorWhite);
+                maleText.setVisibility(View.GONE);
+                femaleText.setVisibility(View.VISIBLE);
 
 
             }
@@ -130,6 +136,8 @@ public class AddPersonDialog extends DialogFragment {
                 genderSelected = MALE;
                 maleSelector.setBackgroundResource(R.color.colorAccent);
                 femaleSelector.setBackgroundResource(R.color.colorWhite);
+                maleText.setVisibility(View.VISIBLE);
+                femaleText.setVisibility(View.GONE);
 
 
             }
@@ -138,9 +146,13 @@ public class AddPersonDialog extends DialogFragment {
         if(personaToAdd.getGender()==MALE){
             maleSelector.setBackgroundResource(R.color.colorAccent);
             femaleSelector.setBackgroundResource(R.color.colorWhite);
+            maleText.setVisibility(View.VISIBLE);
+            femaleText.setVisibility(View.GONE);
         }else{
             femaleSelector.setBackgroundResource(R.color.colorAccent);
             maleSelector.setBackgroundResource(R.color.colorWhite);
+            maleText.setVisibility(View.GONE);
+            femaleText.setVisibility(View.VISIBLE);
         }
 
 

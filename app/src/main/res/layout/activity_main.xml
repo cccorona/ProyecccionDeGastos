@@ -73,14 +73,16 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:id="@+id/home_icon"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_notifications_black_24dp"
-                        android:tint="#FFF"
+                        app:srcCompat="@drawable/ic_home_white_36dp"
+                        android:tint="#000"
                         android:layout_margin="5dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp" />
                     <TextView
-                        android:textColor="#FFF"
+                        android:id="@+id/home_text"
+                        android:textColor="#000"
                         android:gravity="center"
                         android:textSize="12sp"
                         android:text="@string/title_home"
@@ -95,17 +97,19 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:id="@+id/resumen_icon"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_notifications_black_24dp"
+                        app:srcCompat="@drawable/ic_assignment_white_36dp"
                         android:tint="#FFF"
                         android:layout_margin="5dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp" />
                     <TextView
+                        android:id="@+id/resumen_text"
                         android:textColor="#FFF"
                         android:gravity="center"
                         android:textSize="12sp"
-                        android:text="@string/title_home"
+                        android:text="@string/title_resumen"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
@@ -117,17 +121,19 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:id="@+id/data_icon"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_notifications_black_24dp"
+                        app:srcCompat="@drawable/ic_dashboard_white_36dp"
                         android:tint="#FFF"
                         android:layout_margin="5dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp" />
                     <TextView
+                        android:id="@+id/data_text"
                         android:textColor="#FFF"
                         android:gravity="center"
                         android:textSize="12sp"
-                        android:text="@string/title_home"
+                        android:text="@string/title_data"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
@@ -139,17 +145,19 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:id="@+id/familia_icon"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_notifications_black_24dp"
+                        app:srcCompat="@drawable/ic_group_white_36dp"
                         android:tint="#FFF"
                         android:layout_margin="5dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp" />
                     <TextView
+                        android:id="@+id/familia_text"
                         android:textColor="#FFF"
                         android:gravity="center"
                         android:textSize="12sp"
-                        android:text="@string/title_home"
+                        android:text="@string/title_familia"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 

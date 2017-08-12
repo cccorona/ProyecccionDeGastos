@@ -26,6 +26,10 @@ public class PersonaAdapter extends BaseAdapter {
     private OnActionPersonInterface onActionPersonInterface;
 
 
+    public PersonaAdapter(LinkedList<Persona> personas, Context context) {
+        this.personas = personas;
+        this.context = context;
+    }
 
     public interface OnActionPersonInterface{
         void OnEditPerson(Persona persona);

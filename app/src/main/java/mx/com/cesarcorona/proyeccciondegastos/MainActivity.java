@@ -1,5 +1,6 @@
 package mx.com.cesarcorona.proyeccciondegastos;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import mx.com.cesarcorona.proyeccciondegastos.fragments.DataFragment;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.FamiliaFragment;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.HomeFragment;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.ResumenFragment;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Persona;
 
 
@@ -21,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.O
     LinearLayout homeTab, resumenTab, dataTab, familiaTab;
     ImageView addPersonButton;
     Fragment currentFragment;
+    int currentPosition;
+    ImageView iconHome,iconResumen,iconData,iconFamilia;
+    TextView textHome, textResumen, textData, textFamilia;
 
 
 
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         currentFragment = new HomeFragment();
+        currentPosition =1;
         getSupportFragmentManager().beginTransaction().add(R.id.content_fragment,currentFragment,HomeFragment.TAG).commit();
         homeTab = (LinearLayout) findViewById(R.id.home_tab);
         resumenTab = (LinearLayout) findViewById(R.id.resumen_tab);
@@ -47,6 +55,121 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.O
             }
         });
 
+        iconHome = (ImageView) findViewById(R.id.home_icon);
+        iconData = (ImageView) findViewById(R.id.data_icon);
+        iconResumen = (ImageView) findViewById(R.id.resumen_icon);
+        iconFamilia = (ImageView) findViewById(R.id.familia_icon);
+
+        textHome = (TextView)findViewById(R.id.home_text);
+        textResumen = (TextView)findViewById(R.id.resumen_text);
+        textData = (TextView)findViewById(R.id.data_text);
+        textFamilia = (TextView)findViewById(R.id.familia_text);
+
+
+
+
+
+        homeTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(HomeFragment.TAG);
+                if(homeFragment == null){
+                    homeFragment = new HomeFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,homeFragment,HomeFragment.TAG).addToBackStack(null).commit();
+
+                }else{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,homeFragment).addToBackStack(null).commit();
+                }
+
+                iconHome.setColorFilter(Color.argb(0, 0, 0, 0)); // Black Tint
+                iconData.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+                iconResumen.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+                iconFamilia.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+
+                textHome.setTextColor(Color.BLACK);
+                textResumen.setTextColor(Color.WHITE);
+                textData.setTextColor(Color.WHITE);
+                textFamilia.setTextColor(Color.WHITE);
+
+
+            }
+        });
+
+        resumenTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ResumenFragment resumenFragment = (ResumenFragment) getSupportFragmentManager().findFragmentByTag(ResumenFragment.TAG);
+                if(resumenFragment == null){
+                    resumenFragment = new ResumenFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,resumenFragment,ResumenFragment.TAG).addToBackStack(null).commit();
+
+                }else{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,resumenFragment).addToBackStack(null).commit();
+                }
+
+                iconHome.setColorFilter(Color.argb(255, 255, 255, 255)); // Black Tint
+                iconData.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+                iconResumen.setColorFilter(Color.argb(0, 0, 0, 0)); // White Tint
+                iconFamilia.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+
+                textHome.setTextColor(Color.WHITE);
+                textResumen.setTextColor(Color.BLACK);
+                textData.setTextColor(Color.WHITE);
+                textFamilia.setTextColor(Color.WHITE);
+            }
+        });
+
+        dataTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataFragment dataFragment = (DataFragment) getSupportFragmentManager().findFragmentByTag(DataFragment.TAG);
+                if(dataFragment == null){
+                    dataFragment = new DataFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,dataFragment,DataFragment.TAG).addToBackStack(null).commit();
+
+                }else{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,dataFragment).addToBackStack(null).commit();
+                }
+
+                iconHome.setColorFilter(Color.argb(255, 255, 255, 255)); // Black Tint
+                iconData.setColorFilter(Color.argb(0, 0, 0, 0)); // White Tint
+                iconResumen.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+                iconFamilia.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+
+                textHome.setTextColor(Color.WHITE);
+                textResumen.setTextColor(Color.WHITE);
+                textData.setTextColor(Color.BLACK);
+                textFamilia.setTextColor(Color.WHITE);
+
+            }
+        });
+
+        familiaTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FamiliaFragment familiaFragment = (FamiliaFragment) getSupportFragmentManager().findFragmentByTag(FamiliaFragment.TAG);
+                if(familiaFragment == null){
+                    familiaFragment = new FamiliaFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,familiaFragment,FamiliaFragment.TAG).addToBackStack(null).commit();
+
+                }else{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,familiaFragment).addToBackStack(null).commit();
+                }
+
+                iconHome.setColorFilter(Color.argb(255, 255, 255, 255)); // Black Tint
+                iconData.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+                iconResumen.setColorFilter(Color.argb(255, 255, 255, 255)); // White Tint
+                iconFamilia.setColorFilter(Color.argb(0,0,0, 0)); // White Tint
+
+                textHome.setTextColor(Color.WHITE);
+                textResumen.setTextColor(Color.WHITE);
+                textData.setTextColor(Color.WHITE);
+                textFamilia.setTextColor(Color.BLACK);
+
+            }
+        });
+
 
 
     }
@@ -61,6 +184,9 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.O
 
     @Override
     public void OnPersonAdded(Persona persona) {
-
+      HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(HomeFragment.TAG);
+        if(homeFragment !=null){
+            homeFragment.addPerson(persona);
+        }
     }
 }
