@@ -8,10 +8,15 @@ import android.widget.Toast;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
+import java.util.LinkedList;
+
 import mx.com.cesarcorona.proyeccciondegastos.R;
 import mx.com.cesarcorona.proyeccciondegastos.adapters.WizardAdapter;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoPersonas;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoProyeccionFuturo;
+import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
 
-public class MainWizardActivity extends AppCompatActivity implements StepperLayout.StepperListener{
+public class MainWizardActivity extends AppCompatActivity implements StepperLayout.StepperListener,WizardFragmentoPersonas.OnDataInformationInterface {
 
 
     public final static int WIZARD_INTRO = 0;
@@ -25,6 +30,10 @@ public class MainWizardActivity extends AppCompatActivity implements StepperLayo
     private StepperLayout mStepperLayout;
 
 
+    private LinkedList<Person> personasAseguradas;
+    private double primaAnualM ;
+
+
 
 
     @Override
@@ -34,6 +43,7 @@ public class MainWizardActivity extends AppCompatActivity implements StepperLayo
         mStepperLayout = (StepperLayout) findViewById(R.id.stepperLayout);
         mStepperLayout.setAdapter(new WizardAdapter(getSupportFragmentManager(), this));
         mStepperLayout.setListener(this);
+        personasAseguradas = new LinkedList<>();
 
     }
 
@@ -52,6 +62,13 @@ public class MainWizardActivity extends AppCompatActivity implements StepperLayo
     @Override
     public void onStepSelected(int newStepPosition) {
         Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show();
+        if(newStepPosition == WIZARD_PROYECCION){
+                 WizardFragmentoProyeccionFuturo step = (WizardFragmentoProyeccionFuturo) mStepperLayout.getAdapter().findStep(WIZARD_PROYECCION);
+                 step.setPersons(personasAseguradas);
+                 step.setPrimaAnual(primaAnualM);
+                 step.calculateProyeccion();
+
+        }
     }
 
     @Override
@@ -59,4 +76,11 @@ public class MainWizardActivity extends AppCompatActivity implements StepperLayo
         finish();
     }
 
+
+
+    @Override
+    public void OnFilledData(LinkedList<Person> persons, double primaAnual) {
+        personasAseguradas = persons;
+        primaAnualM = primaAnual;
+    }
 }

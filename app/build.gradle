@@ -38,5 +38,7 @@ dependencies {
     compile 'com.github.JesusM:HoloCircleSeekBar:v2.2.2'
     compile 'com.stepstone.stepper:material-stepper:4.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+
     testCompile 'junit:junit:4.12'
 }

@@ -32,9 +32,11 @@ public class WizardAdapter extends AbstractFragmentStepAdapter {
 
 
 
+    private Context mContext;
 
     public WizardAdapter(FragmentManager fm, Context context) {
         super(fm, context);
+        this.mContext = context;
     }
 
     @Override
@@ -48,6 +50,7 @@ public class WizardAdapter extends AbstractFragmentStepAdapter {
                 break;
             case WIZARD_PERSONAS:
                 step = new WizardFragmentoPersonas();
+                ((WizardFragmentoPersonas)step).setOnDataInformationInterface((WizardFragmentoPersonas.OnDataInformationInterface) mContext);
                 break;
             case WIZARD_PROYECCION:
                 step = new WizardFragmentoProyeccionFuturo();

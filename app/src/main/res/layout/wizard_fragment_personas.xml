@@ -1,5 +1,5 @@
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,8 +9,9 @@
 
 
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:background="#0099cc"
         android:orientation="vertical"
         tools:context="mx.com.cesarcorona.proyeccciondegastos.activities.MainWizardActivity">
@@ -45,6 +46,7 @@
 
 
             <EditText
+                android:id="@+id/num_persons"
                 android:inputType="none"
                 android:editable="false"
                 android:textStyle="bold"
@@ -144,7 +146,7 @@
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_margin="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
@@ -174,12 +176,13 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/prima_anual"
             android:inputType="number"
-            android:editable="false"
             android:textStyle="bold"
             android:textSize="24sp"
             android:gravity="center"
             android:hint="0"
+            android:imeOptions="actionDone"
             android:layout_marginLeft="0dp"
             android:background="@drawable/white_rounded"
             android:layout_width="100dp"
@@ -197,6 +200,6 @@
 
 
 
-</RelativeLayout>
+</LinearLayout>
 
 

@@ -21,7 +21,7 @@ public class Person implements Serializable {
         this.genero = genero;
     }
 
-    Person(){
+    public Person(){
         this.edad = 0;
         this.genero="";
     }

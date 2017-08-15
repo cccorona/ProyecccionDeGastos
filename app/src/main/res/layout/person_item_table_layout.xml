@@ -12,6 +12,8 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:inputType="none"
+            android:editable="false"
             android:background="@drawable/blue_black_border"
             android:id="@+id/number"
             android:layout_weight="1"
@@ -19,6 +21,8 @@
             android:layout_width="0dp"
             android:layout_height="40dp" />
         <EditText
+            android:inputType="none"
+            android:editable="false"
             android:background="@drawable/white_with_black_border"
             android:id="@+id/edad"
             android:layout_weight="1"
@@ -26,6 +30,8 @@
             android:layout_width="0dp"
             android:layout_height="40dp" />
         <EditText
+            android:editable="false"
+            android:inputType="none"
             android:background="@drawable/white_with_black_border"
             android:id="@+id/genero"
             android:layout_weight="1"
