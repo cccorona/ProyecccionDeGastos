@@ -40,6 +40,7 @@
 
 
         <EditText
+            android:id="@+id/recibir_email"
             android:inputType="none"
             android:editable="false"
             android:textStyle="bold"
@@ -68,11 +69,11 @@
         android:textStyle="bold" />
 
     <EditText
-        android:inputType="none"
-        android:editable="false"
+        android:id="@+id/nombre_completo"
         android:textStyle="bold"
         android:textSize="24sp"
         android:gravity="center"
+        android:inputType="text"
         android:hint=""
         android:background="@drawable/white_rounded"
         android:layout_width="match_parent"
@@ -94,8 +95,8 @@
         android:textStyle="bold" />
 
     <EditText
-        android:inputType="none"
-        android:editable="false"
+        android:id="@+id/email"
+        android:inputType="textEmailAddress"
         android:textStyle="bold"
         android:textSize="24sp"
         android:gravity="center"
