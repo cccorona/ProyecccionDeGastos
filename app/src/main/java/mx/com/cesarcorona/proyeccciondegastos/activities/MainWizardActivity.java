@@ -12,11 +12,14 @@ import java.util.LinkedList;
 
 import mx.com.cesarcorona.proyeccciondegastos.R;
 import mx.com.cesarcorona.proyeccciondegastos.adapters.WizardAdapter;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoCompartir;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoPersonas;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoProyeccionFuturo;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
 
-public class MainWizardActivity extends AppCompatActivity implements StepperLayout.StepperListener,WizardFragmentoPersonas.OnDataInformationInterface {
+public class MainWizardActivity extends AppCompatActivity implements
+        StepperLayout.StepperListener,
+        WizardFragmentoPersonas.OnDataInformationInterface,WizardFragmentoCompartir.OnshareInterface {
 
 
     public final static int WIZARD_INTRO = 0;
@@ -32,6 +35,7 @@ public class MainWizardActivity extends AppCompatActivity implements StepperLayo
 
     private LinkedList<Person> personasAseguradas;
     private double primaAnualM ;
+    private String nombrec,correoElectronico;
 
 
 
@@ -82,5 +86,11 @@ public class MainWizardActivity extends AppCompatActivity implements StepperLayo
     public void OnFilledData(LinkedList<Person> persons, double primaAnual) {
         personasAseguradas = persons;
         primaAnualM = primaAnual;
+    }
+
+    @Override
+    public void OnShareSelected(String mail, String nombreCompleto) {
+        correoElectronico = mail;
+        nombrec = nombreCompleto;
     }
 }

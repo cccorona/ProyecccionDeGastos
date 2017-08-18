@@ -60,6 +60,8 @@ public class WizardAdapter extends AbstractFragmentStepAdapter {
                 break;
             case WIZARD_COMPARTIR:
                 step = new WizardFragmentoCompartir();
+                ((WizardFragmentoCompartir)step).setOnshareInterface((WizardFragmentoCompartir.OnshareInterface)mContext);
+
                 break;
             case WIZARD_FINALIZAR:
                 step = new WizardFragmentFinal();

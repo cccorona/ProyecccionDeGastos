@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
@@ -23,6 +24,15 @@ import mx.com.cesarcorona.proyeccciondegastos.R;
 public class WizardFragmentoCompartir extends Fragment implements Step , NumberPicker.OnValueChangeListener{
 
     private EditText recivirEmail, nombreCompleto, correoElectronico;
+    private OnshareInterface onshareInterface;
+
+    public interface OnshareInterface{
+        void OnShareSelected(String mail,String nombreCompleto);
+    }
+
+    public void setOnshareInterface(OnshareInterface onshareInterface) {
+        this.onshareInterface = onshareInterface;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +55,23 @@ public class WizardFragmentoCompartir extends Fragment implements Step , NumberP
     @Override
     public VerificationError verifyStep() {
         //return null if the user can go to the next step, create a new VerificationError instance otherwise
-        return null;
+        VerificationError error =null;
+        if(recivirEmail.getText().toString().equalsIgnoreCase("Y")){
+            if(nombreCompleto.getText().length()<1 || correoElectronico.getText().length() < 1){
+                Toast.makeText(getActivity(),"Debe rellenar todos los campos si desea que la proyección se " +
+                        "mande a su correo",Toast.LENGTH_LONG).show();
+                error  = new VerificationError("Debe rellenar todos los campos si desea que la proyección se " +
+                        "mande a su correo");
+            }else{
+                if(onshareInterface!= null){
+                    onshareInterface.OnShareSelected(correoElectronico.getText().toString(),
+                            nombreCompleto.getText().toString());
+                }
+            }
+        }else{
+
+        }
+        return error;
     }
 
     @Override
