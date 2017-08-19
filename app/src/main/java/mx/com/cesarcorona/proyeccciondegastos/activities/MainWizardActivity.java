@@ -36,6 +36,7 @@ public class MainWizardActivity extends AppCompatActivity implements
     private LinkedList<Person> personasAseguradas;
     private double primaAnualM ;
     private String nombrec,correoElectronico;
+    private String comentarios;
 
 
 
@@ -92,5 +93,10 @@ public class MainWizardActivity extends AppCompatActivity implements
     public void OnShareSelected(String mail, String nombreCompleto) {
         correoElectronico = mail;
         nombrec = nombreCompleto;
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

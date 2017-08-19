@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class WizardFragmentoCompartir extends Fragment implements Step , NumberP
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.wizard_fragment_compartir, container, false);
         recivirEmail = (EditText) v.findViewById(R.id.recibir_email);
+        recivirEmail.setText("SI");
         nombreCompleto = (EditText) v.findViewById(R.id.nombre_completo);
         correoElectronico = (EditText) v.findViewById(R.id.email);
 
@@ -56,17 +58,23 @@ public class WizardFragmentoCompartir extends Fragment implements Step , NumberP
     public VerificationError verifyStep() {
         //return null if the user can go to the next step, create a new VerificationError instance otherwise
         VerificationError error =null;
-        if(recivirEmail.getText().toString().equalsIgnoreCase("Y")){
+        if(recivirEmail.getText().toString().equalsIgnoreCase("SI")){
             if(nombreCompleto.getText().length()<1 || correoElectronico.getText().length() < 1){
                 Toast.makeText(getActivity(),"Debe rellenar todos los campos si desea que la proyección se " +
                         "mande a su correo",Toast.LENGTH_LONG).show();
                 error  = new VerificationError("Debe rellenar todos los campos si desea que la proyección se " +
                         "mande a su correo");
+
             }else{
-                if(onshareInterface!= null){
-                    onshareInterface.OnShareSelected(correoElectronico.getText().toString(),
-                            nombreCompleto.getText().toString());
+                if(!isValidEmail(correoElectronico.getText().toString())){
+                    error  = new VerificationError("El correo electronico no tiene un formato valido");
+                }else{
+                    if(onshareInterface!= null){
+                        onshareInterface.OnShareSelected(correoElectronico.getText().toString(),
+                                nombreCompleto.getText().toString());
+                    }
                 }
+
             }
         }else{
 
@@ -129,5 +137,10 @@ public class WizardFragmentoCompartir extends Fragment implements Step , NumberP
                recivirEmail.setText("NO");
 
            }
+    }
+
+
+    public final static boolean isValidEmail(CharSequence target) {
+        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }

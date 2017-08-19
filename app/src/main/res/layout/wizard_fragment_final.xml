@@ -55,6 +55,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/comentario_text"
         android:textSize="16sp"
         android:gravity="center"
         android:hint="Comentario"
@@ -83,7 +84,6 @@
             android:layout_height="match_parent" />
         <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/date_proyeccion"
             android:textStyle="bold"
             android:gravity="center"
             android:text="11/08/2018"
@@ -93,6 +93,7 @@
             android:layout_height="match_parent" >
 
             <LinearLayout
+                android:id="@+id/linear_nueva_pro"
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -108,6 +109,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/linear_salir"
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
