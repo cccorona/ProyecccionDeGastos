@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#2196F3"
     android:orientation="vertical"
     tools:context="mx.com.cesarcorona.proyeccciondegastos.activities.MainWizardActivity">
 
@@ -13,6 +13,7 @@
         android:layout_height="30dp">
 
         <TextView
+            android:textColor="#FFF"
             android:textStyle="bold"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
@@ -23,6 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
         <TextView
+            android:textColor="#FFF"
             android:id="@+id/date_proyeccion"
             android:textStyle="bold"
             android:paddingLeft="10dp"
@@ -53,6 +55,7 @@
         <TextView
             android:textStyle="bold"
             android:paddingLeft="10dp"
+            android:textColor="#FFF"
             android:paddingTop="5dp"
             android:gravity="center"
             android:text="Cifras en pesos del 2017"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#2196F3"
     android:orientation="vertical">
 
 
@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#0099cc"
+        android:background="#2196F3"
         android:orientation="vertical"
         tools:context="mx.com.cesarcorona.proyeccciondegastos.activities.MainWizardActivity">
 
@@ -33,7 +33,7 @@
             android:padding="20dp"
             android:keepScreenOn="true"
             android:text="@string/cuantas_personas_est_n_aseguradas_en_su_poliza"
-            android:textColor="#55d5f5"
+            android:textColor="#FFF"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                     android:gravity="center"
                     android:text="#"
                     android:textSize="16sp"
-                    android:textColor="#000"
+                    android:textColor="#FFF"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -103,7 +103,7 @@
                     android:gravity="center"
                     android:text="Edad"
                     android:textSize="16sp"
-                    android:textColor="#000"
+                    android:textColor="#FFF"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -113,7 +113,7 @@
                     android:gravity="center"
                     android:text="Sexo(M/F)"
                     android:textSize="16sp"
-                    android:textColor="#000"
+                    android:textColor="#FFF"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -151,19 +151,21 @@
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_weight="40"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="0dp"
             android:padding="20dp"
             android:keepScreenOn="true"
             android:text="¿Cuál es la prima anual?"
-            android:textColor="#55d5f5"
-            android:textSize="16sp"
+            android:textColor="#FFF"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
 
         <EditText
+            android:layout_weight="10"
             android:inputType="none"
             android:editable="false"
             android:textStyle="bold"
@@ -171,11 +173,12 @@
             android:gravity="center"
             android:hint="$"
             android:background="@drawable/white_rounded"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_marginRight="0dp"
             android:layout_height="wrap_content" />
 
         <EditText
+            android:layout_weight="50"
             android:id="@+id/prima_anual"
             android:inputType="number"
             android:textStyle="bold"
@@ -185,8 +188,8 @@
             android:imeOptions="actionDone"
             android:layout_marginLeft="0dp"
             android:background="@drawable/white_rounded"
-            android:layout_width="100dp"
-            android:layout_marginRight="40dp"
+            android:layout_width="0dp"
+            android:layout_marginRight="0dp"
             android:layout_height="wrap_content" />
 
 

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#2196F3"
     android:orientation="vertical"
     tools:context="mx.com.cesarcorona.proyeccciondegastos.activities.MainWizardActivity">
 
@@ -22,7 +22,7 @@
         android:padding="30dp"
         android:keepScreenOn="true"
         android:text="@string/intro_splash"
-        android:textColor="#55d5f5"
+        android:textColor="#FFF"
         android:textSize="16sp"
         android:textStyle="bold" />
 
