@@ -1,6 +1,8 @@
 package mx.com.cesarcorona.proyeccciondegastos.pojo;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Created by ccabrera on 11/08/17.
@@ -14,6 +16,8 @@ public class Person implements Serializable {
 
     private int edad;
     private String genero;
+    private LinkedHashMap<Integer,Double> primaPorAño;
+    private double primaCalculada;
 
 
     public Person(int edad, String genero) {
@@ -24,6 +28,8 @@ public class Person implements Serializable {
     public Person(){
         this.edad = 0;
         this.genero="";
+        this.primaPorAño = new LinkedHashMap<>();
+        this.primaCalculada = 0.0 ;
     }
 
 
@@ -41,5 +47,25 @@ public class Person implements Serializable {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public LinkedHashMap<Integer, Double> getPrimaPorAño() {
+        return primaPorAño;
+    }
+
+    public void setPrimaPorAño(LinkedHashMap<Integer, Double> primaPorAño) {
+        this.primaPorAño = primaPorAño;
+    }
+
+    public void agregarPrimaPorAno(Integer integer, Double prima){
+        primaPorAño.put(integer,prima);
+    }
+
+    public double getPrimaCalculada() {
+        return primaCalculada;
+    }
+
+    public void setPrimaCalculada(double primaCalculada) {
+        this.primaCalculada = primaCalculada;
     }
 }
