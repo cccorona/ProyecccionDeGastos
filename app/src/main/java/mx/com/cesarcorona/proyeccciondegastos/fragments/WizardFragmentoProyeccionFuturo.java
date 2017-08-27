@@ -1,5 +1,6 @@
 package mx.com.cesarcorona.proyeccciondegastos.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,12 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -23,7 +28,9 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import mx.com.cesarcorona.proyeccciondegastos.R;
+import mx.com.cesarcorona.proyeccciondegastos.adapters.ProyeccionAdapter;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
+import mx.com.cesarcorona.proyeccciondegastos.pojo.RowProyeccion;
 
 import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.HOMBRE;
 
@@ -37,10 +44,14 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
     public  static  String TAG = WizardFragmentoProyeccionFuturo.class.getSimpleName();
 
     private LinkedList<Person> persons;
+    private LinkedList<RowProyeccion> proyeccions;
+    private ProyeccionAdapter proyeccionAdapter;
     private double primaAnual;
     private double primaCalculada;
     private double relacionEntrePrimas;
     private static final int CURRENT_YEAR = 2017;
+
+
 
     private Workbook workbook = null;
     private Sheet familiaSheet,dataSheet;
@@ -56,6 +67,18 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
     private LinkedHashMap<Integer,Double> primasTotalSaludReal;
 
 
+    private ProgressDialog pDialog;
+    private ListView proyeccionList;
+    private ProyectionInterface proyectionInterface;
+
+
+    public void setProyectionInterface(ProyectionInterface proyectionInterface) {
+        this.proyectionInterface = proyectionInterface;
+    }
+
+    public interface ProyectionInterface{
+        void OnProyectionFinished(LinkedList<RowProyeccion> proyeccions);
+    }
 
 
 
@@ -71,17 +94,31 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
         mujerPrimaOld = new LinkedHashMap<>();
         primasTotalPorAno = new LinkedHashMap<>();
         primasTotalSaludReal = new LinkedHashMap<>();
+        primasTotalSaludTotal = new LinkedHashMap<>();
         primasTotalPorAno = new LinkedHashMap<>();
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Por favor espera...");
+        pDialog.setCancelable(false);
+        proyeccions = new LinkedList<>();
 
 
 
 
-        loadData();
+        //loadData();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.wizard_fragment_proyeccion, container, false);
+        proyeccionList = (ListView) v.findViewById(R.id.proyeccion_lista);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+
+        TextView date_proyeccion = (TextView) v.findViewById(R.id.date_proyeccion);
+        date_proyeccion.setText(formattedDate);
+
 
         return v;
     }
@@ -119,6 +156,7 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
     }
 
     public void calculateProyeccion(){
+           showpDialog();
            loadData();
            for(Person person:persons){
                if(person.getGenero().equalsIgnoreCase(HOMBRE)){
@@ -134,11 +172,11 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
 
            for(Person person:persons){
                for(Integer year:anos.keySet()){
-                   Integer keyYearToSearch = person.getEdad() + CURRENT_YEAR - anos.get(year);
+                   Integer keyYearToSearch = person.getEdad() +anos.get(year) - CURRENT_YEAR ;
                    if(person.getGenero().equalsIgnoreCase(HOMBRE)){
-                       person.agregarPrimaPorAno(year,hombrePrima.get(keyYearToSearch)/relacionEntrePrimas);
+                       person.agregarPrimaPorAno(anos.get(year),hombrePrima.get(keyYearToSearch)/relacionEntrePrimas);
                    }else{
-                       person.agregarPrimaPorAno(year,hombrePrima.get(keyYearToSearch)/relacionEntrePrimas);
+                       person.agregarPrimaPorAno(anos.get(year),mujerPrima.get(keyYearToSearch)/relacionEntrePrimas);
 
                    }
                }
@@ -147,9 +185,9 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
            for(Integer year:anos.keySet()){
                double sumaTotalPorAno = 0;
                for(Person person:persons){
-                   sumaTotalPorAno+= person.getPrimaPorAño().get(year);
+                   sumaTotalPorAno+= person.getPrimaPorAño().get(anos.get(year));
                }
-               primasTotalPorAno.put(year,sumaTotalPorAno);
+               primasTotalPorAno.put(anos.get(year),sumaTotalPorAno);
            }
 
            boolean isFirst = true;
@@ -169,6 +207,22 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
 
            }
 
+
+           for(Integer key:primasTotalSaludTotal.keySet()){
+             proyeccions.add(new RowProyeccion(primasTotalSaludTotal.get(key),primasTotalSaludReal.get(key),
+                     key));
+           }
+
+           proyeccionAdapter = new ProyeccionAdapter(proyeccions,getActivity());
+           proyeccionList.setAdapter(proyeccionAdapter);
+
+
+
+       hidepDialog();
+
+        if(proyectionInterface!= null){
+            proyectionInterface.OnProyectionFinished(proyeccions);
+        }
 
     }
 
@@ -219,6 +273,17 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
         } catch (IOException e) {
             Log.d("Inflacacion",e.getMessage());
         }
+    }
+
+
+    private void showpDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 
 

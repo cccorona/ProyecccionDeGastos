@@ -20,6 +20,9 @@ import java.util.zip.Inflater;
 import mx.com.cesarcorona.proyeccciondegastos.R;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
 
+import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.HOMBRE;
+import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.MUJER;
+
 /**
  * Created by ccabrera on 15/08/17.
  */
@@ -86,7 +89,13 @@ public class PersonAdapter extends BaseAdapter {
 
         numero.setText(""+(1+position));
         edad.setText(""+listaPersonas.get(position).getEdad());
-        genero.setText(listaPersonas.get(position).getGenero());
+        genero.setText("");
+        if(listaPersonas.get(position).getGenero().equalsIgnoreCase(HOMBRE)){
+            genero.setText("M");
+
+        }else if(listaPersonas.get(position).getGenero().equalsIgnoreCase(MUJER)){
+            genero.setText("F");
+        }
 
         return rootView;
 
@@ -159,9 +168,9 @@ public class PersonAdapter extends BaseAdapter {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 if(newVal == 0){
-                    listaPersonas.get(position).setGenero("M");
+                    listaPersonas.get(position).setGenero(HOMBRE);
                 }else{
-                    listaPersonas.get(position).setGenero("F");
+                    listaPersonas.get(position).setGenero(MUJER);
                 }
                 notifyDataSetChanged();
 

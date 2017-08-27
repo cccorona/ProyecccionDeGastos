@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('itext5-itext-pdfa-5.5.12.jar'))

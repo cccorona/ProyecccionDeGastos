@@ -27,7 +27,7 @@ public class Person implements Serializable {
 
     public Person(){
         this.edad = 0;
-        this.genero="";
+        this.genero=HOMBRE;
         this.primaPorAño = new LinkedHashMap<>();
         this.primaCalculada = 0.0 ;
     }

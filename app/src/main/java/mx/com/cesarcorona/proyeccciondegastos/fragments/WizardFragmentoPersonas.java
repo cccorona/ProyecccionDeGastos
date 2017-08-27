@@ -25,6 +25,9 @@ import mx.com.cesarcorona.proyeccciondegastos.adapters.PersonAdapter;
 import mx.com.cesarcorona.proyeccciondegastos.adapters.PersonaAdapter;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
 
+import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.HOMBRE;
+import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.MUJER;
+
 /**
  * Created by ccabrera on 11/08/17.
  */
@@ -114,7 +117,7 @@ public class WizardFragmentoPersonas extends Fragment implements Step {
         for(Person personToValidate:personas){
             if(personToValidate.getEdad()<= 0 || personToValidate.getEdad()>= 80){
                 return  new VerificationError("El asegurado debe tener entre 0 y 80 años");
-            }else if(!personToValidate.getGenero().equalsIgnoreCase("M") && !personToValidate.getGenero().equalsIgnoreCase("F")){
+            }else if(!personToValidate.getGenero().equalsIgnoreCase(HOMBRE) && !personToValidate.getGenero().equalsIgnoreCase(MUJER)){
                 return  new VerificationError("El asegurado debe ser M para masculino o F para femenino");
 
             }

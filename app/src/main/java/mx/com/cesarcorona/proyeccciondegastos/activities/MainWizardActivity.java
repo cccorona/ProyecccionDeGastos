@@ -23,14 +23,18 @@ import jxl.read.biff.BiffException;
 import jxl.write.Number;
 import mx.com.cesarcorona.proyeccciondegastos.R;
 import mx.com.cesarcorona.proyeccciondegastos.adapters.WizardAdapter;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentFinal;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentProyeccionPasada;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoCompartir;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoPersonas;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoProyeccionFuturo;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
+import mx.com.cesarcorona.proyeccciondegastos.pojo.RowProyeccion;
 
 public class MainWizardActivity extends AppCompatActivity implements
         StepperLayout.StepperListener,
-        WizardFragmentoPersonas.OnDataInformationInterface,WizardFragmentoCompartir.OnshareInterface {
+        WizardFragmentoPersonas.OnDataInformationInterface,WizardFragmentoCompartir.OnshareInterface,
+        WizardFragmentoProyeccionFuturo.ProyectionInterface,WizardFragmentFinal.OnLastInterface {
 
 
     public final static int WIZARD_INTRO = 0;
@@ -40,6 +44,9 @@ public class MainWizardActivity extends AppCompatActivity implements
     public final static int WIZARD_COMPARTIR = 4;
     public final static int WIZARD_FINALIZAR = 5;
 
+
+
+    private LinkedList<RowProyeccion> rowProyeccions;
 
     private static final String EXCEL_FILE_LOCATION = "file:///assets/files/data.xlsx";
 
@@ -52,6 +59,7 @@ public class MainWizardActivity extends AppCompatActivity implements
     private double primaAnualM ;
     private String nombrec,correoElectronico;
     private String comentarios;
+    private int finalOption;
 
 
 
@@ -72,12 +80,14 @@ public class MainWizardActivity extends AppCompatActivity implements
 
 
 
+
     }
 
 
         @Override
     public void onCompleted(View completeButton) {
-        Toast.makeText(this, "onCompleted!", Toast.LENGTH_SHORT).show();
+            performFinalActions();
+
     }
 
     @Override
@@ -94,7 +104,11 @@ public class MainWizardActivity extends AppCompatActivity implements
                  step.setPrimaAnual(primaAnualM);
                  step.calculateProyeccion();
 
+        }else if(newStepPosition == WIZARD_PROYECCION_PASADA){
+            WizardFragmentProyeccionPasada step = (WizardFragmentProyeccionPasada) mStepperLayout.getAdapter().findStep(WIZARD_PROYECCION_PASADA);
+            step.setProyeccions(rowProyeccions);
         }
+
     }
 
     @Override
@@ -122,5 +136,22 @@ public class MainWizardActivity extends AppCompatActivity implements
     }
 
 
+
+
+
+    @Override
+    public void OnProyectionFinished(LinkedList<RowProyeccion> proyeccions) {
+        rowProyeccions = proyeccions;
+    }
+
+    @Override
+    public void OnFinalConfiguration(String comentary, int action) {
+        comentarios = comentary;
+        finalOption = action;
+    }
+
+    private void performFinalActions(){
+
+    }
 
 }

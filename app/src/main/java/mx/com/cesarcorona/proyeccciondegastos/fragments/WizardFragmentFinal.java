@@ -27,18 +27,30 @@ public class WizardFragmentFinal extends Fragment implements Step {
     public static String TAG = WizardFragmentFinal.class.getSimpleName();
     public static final int SALIR = 1;
     private static final int AGAIN = 0;
+    private static final int NOT_SELECTED = 9;
     private static final long SPLASH_SCREEN_DELAY = 1000;
 
 
-    private int optionSelected;
+    private int optionSelected = NOT_SELECTED;
     private LinearLayout salirLayout, againLayout;
     private EditText comentarionsText;
+    private OnLastInterface lastInterface;
+
+    public void setLastInterface(OnLastInterface lastInterface) {
+        this.lastInterface = lastInterface;
+    }
+
+    public interface  OnLastInterface{
+        void OnFinalConfiguration(String comentary,int action);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.wizard_fragment_final, container, false);
         salirLayout = (LinearLayout) v.findViewById(R.id.linear_salir);
         againLayout = (LinearLayout) v.findViewById(R.id.linear_nueva_pro);
+        comentarionsText = (EditText) v.findViewById(R.id.comentario_text);
+
 
         salirLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,24 +75,14 @@ public class WizardFragmentFinal extends Fragment implements Step {
 
     @Override
     public VerificationError verifyStep() {
-        if(comentarionsText.getText().length()>0){
-            //send Email ;
-        }
-        if(optionSelected == SALIR){
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    Thread.currentThread()
-                            .setName(this.getClass().getSimpleName() + ": " + Thread.currentThread().getName());
-                    getActivity().finish();
-
-                }
-            };
-
-            Timer timer = new Timer();
-            timer.schedule(task, SPLASH_SCREEN_DELAY);
-        }
-        return null;
+         if(optionSelected == NOT_SELECTED){
+            return  new VerificationError("Seleccion Salir / Nueva simulación");
+         }else{
+             if(lastInterface  != null){
+                 lastInterface.OnFinalConfiguration(comentarionsText.getText().toString(),optionSelected);
+             }
+             return null;
+         }
     }
 
     @Override
