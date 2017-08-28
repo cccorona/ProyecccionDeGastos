@@ -104,7 +104,7 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
 
 
 
-        //loadData();
+        loadData();
     }
 
     @Override
@@ -126,6 +126,9 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
     @Override
     public VerificationError verifyStep() {
         //return null if the user can go to the next step, create a new VerificationError instance otherwise
+        if(proyectionInterface!= null){
+            proyectionInterface.OnProyectionFinished(proyeccions);
+        }
         return null;
     }
 
@@ -157,7 +160,11 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
 
     public void calculateProyeccion(){
            showpDialog();
-           loadData();
+        proyeccions = new LinkedList<>();
+        primaCalculada = 0.0 ;
+        primasTotalPorAno = new LinkedHashMap<>();
+        primasTotalSaludReal = new LinkedHashMap<>();
+        primasTotalSaludTotal = new LinkedHashMap<>();
            for(Person person:persons){
                if(person.getGenero().equalsIgnoreCase(HOMBRE)){
                    person.setPrimaCalculada(hombrePrimaOld.get(person.getEdad()));
@@ -220,9 +227,7 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
 
        hidepDialog();
 
-        if(proyectionInterface!= null){
-            proyectionInterface.OnProyectionFinished(proyeccions);
-        }
+
 
     }
 

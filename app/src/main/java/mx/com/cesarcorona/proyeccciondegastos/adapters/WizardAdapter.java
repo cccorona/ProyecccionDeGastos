@@ -54,6 +54,7 @@ public class WizardAdapter extends AbstractFragmentStepAdapter {
                 break;
             case WIZARD_PROYECCION:
                 step = new WizardFragmentoProyeccionFuturo();
+                ((WizardFragmentoProyeccionFuturo)step).setProyectionInterface((WizardFragmentoProyeccionFuturo.ProyectionInterface) mContext);
                 break;
             case WIZARD_PROYECCION_PASADA:
                 step = new WizardFragmentProyeccionPasada();

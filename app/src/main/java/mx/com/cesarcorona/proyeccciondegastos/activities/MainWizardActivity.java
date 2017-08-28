@@ -1,5 +1,7 @@
 package mx.com.cesarcorona.proyeccciondegastos.activities;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -82,6 +84,9 @@ public class MainWizardActivity extends AppCompatActivity implements
     private String nombrec,correoElectronico;
     private String comentarios;
     private int finalOption;
+    private String pdfFile ;
+
+    private ProgressDialog pDialog;
 
 
 
@@ -98,7 +103,9 @@ public class MainWizardActivity extends AppCompatActivity implements
         mStepperLayout.setAdapter(new WizardAdapter(getSupportFragmentManager(), this));
         mStepperLayout.setListener(this);
         personasAseguradas = new LinkedList<>();
-        generatePDF();
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Por favor espera...");
+        pDialog.setCancelable(false);
 
 
 
@@ -109,7 +116,9 @@ public class MainWizardActivity extends AppCompatActivity implements
 
         @Override
     public void onCompleted(View completeButton) {
+            showpDialog();
             performFinalActions();
+            hidepDialog();
 
     }
 
@@ -130,6 +139,7 @@ public class MainWizardActivity extends AppCompatActivity implements
         }else if(newStepPosition == WIZARD_PROYECCION_PASADA){
             WizardFragmentProyeccionPasada step = (WizardFragmentProyeccionPasada) mStepperLayout.getAdapter().findStep(WIZARD_PROYECCION_PASADA);
             step.setProyeccions(rowProyeccions);
+            step.loadProyeccion();
         }
 
     }
@@ -188,17 +198,14 @@ public class MainWizardActivity extends AppCompatActivity implements
         }
 
 
-        if(finalOption == SALIR){
-            //logout
-        }else if(finalOption == AGAIN){
 
-        }
 
 
 
     }
 
     private boolean generatePDF(){
+        boolean OK = true;
         File sdCard = Environment.getExternalStorageDirectory();
         String path = sdCard.getAbsolutePath() + "/temp/proyeccion.pdf";
         File file = new File(path);
@@ -253,31 +260,62 @@ public class MainWizardActivity extends AppCompatActivity implements
 
             }
             documento.add(tabla);
+            pdfFile = file.getAbsolutePath();
             documento.close();
+
 
 
 
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            OK = false;
         } catch (DocumentException e) {
             e.printStackTrace();
+            OK = false;
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            OK =false ;
         } catch (IOException e) {
             e.printStackTrace();
+            OK = false;
         }
 
-        return  true;
+        return  OK;
     }
 
     private void sendEmailWithProyection(){
-
-
-
+        File filelocation = new File(pdfFile);
+        Uri path = Uri.fromFile(filelocation);
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent .setType("vnd.android.cursor.dir/email");
+        String to[] = {correoElectronico};
+        emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
+        emailIntent .putExtra(Intent.EXTRA_STREAM, path);
+        emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Proyeccion" +nombrec);
+        startActivity(Intent.createChooser(emailIntent , "Mandar correo..."));
     }
 
     private void sendComentarios(){
+
+    }
+
+
+    private void showpDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+
+
+    private void resetAll(){
+        personasAseguradas = new LinkedList<>();
+        correoElectronico = null ;
+
 
     }
 
