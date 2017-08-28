@@ -34,7 +34,8 @@ dependencies {
     compile 'com.stepstone.stepper:material-stepper:4.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.itextpdf:itextg:5.5.9'
+
     testCompile 'junit:junit:4.12'
     compile project(':jxl')
-    compile project(':itext5-itext-pdfa-5.5.12')
 }

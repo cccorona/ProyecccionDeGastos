@@ -1,19 +1,38 @@
 package mx.com.cesarcorona.proyeccciondegastos.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+
 
 import jxl.Cell;
 import jxl.NumberCell;
@@ -30,6 +49,9 @@ import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoPersonas;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoProyeccionFuturo;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.RowProyeccion;
+
+import static mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentFinal.AGAIN;
+import static mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentFinal.SALIR;
 
 public class MainWizardActivity extends AppCompatActivity implements
         StepperLayout.StepperListener,
@@ -76,6 +98,7 @@ public class MainWizardActivity extends AppCompatActivity implements
         mStepperLayout.setAdapter(new WizardAdapter(getSupportFragmentManager(), this));
         mStepperLayout.setListener(this);
         personasAseguradas = new LinkedList<>();
+        generatePDF();
 
 
 
@@ -152,6 +175,111 @@ public class MainWizardActivity extends AppCompatActivity implements
 
     private void performFinalActions(){
 
+
+        if(correoElectronico != null){
+            if(generatePDF()){
+                sendEmailWithProyection();
+            }
+
+        }
+
+        if(comentarios != null){
+            sendComentarios();
+        }
+
+
+        if(finalOption == SALIR){
+            //logout
+        }else if(finalOption == AGAIN){
+
+        }
+
+
+
     }
+
+    private boolean generatePDF(){
+        File sdCard = Environment.getExternalStorageDirectory();
+        String path = sdCard.getAbsolutePath() + "/temp/proyeccion.pdf";
+        File file = new File(path);
+        Document documento = new Document();
+        try {
+            file.getParentFile().mkdir();
+            file.createNewFile();
+            FileOutputStream ficheroPdf = new FileOutputStream(file);
+            // Se asocia el documento al OutputStream y se indica que el espaciado entre
+            // lineas sera de 20. Esta llamada debe hacerse antes de abrir el documento
+            PdfWriter.getInstance(documento,ficheroPdf).setInitialLeading(20);
+
+            // Se abre el documento.
+            documento.open();
+
+            documento.add(new Paragraph("PROYECCION DE PRIMAS DE GASTOS MEDICOS ",
+                    FontFactory.getFont("arial",   // fuente
+                            22,                            // tamaño
+                            Font.ITALIC,                   // estilo
+                            BaseColor.CYAN)));             // color
+
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.janem_ogo);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+
+
+            Image foto = Image.getInstance(byteArray);
+            foto.scaleToFit(100, 100);
+            foto.setAlignment(Chunk.ALIGN_MIDDLE);
+            documento.add(foto);
+
+
+            PdfPTable tabla = new PdfPTable(3);
+            tabla.addCell("Año");
+            tabla.addCell("Primas");
+            tabla.addCell("Pesos 2017");
+
+            rowProyeccions = new LinkedList<>();
+            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
+            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
+            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
+            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
+            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
+
+
+            for(RowProyeccion fila :rowProyeccions){
+                tabla.addCell(""+fila.getAno());
+                tabla.addCell(""+fila.getPesos());
+                tabla.addCell(""+fila.getPesos2017());
+
+            }
+            documento.add(tabla);
+            documento.close();
+
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  true;
+    }
+
+    private void sendEmailWithProyection(){
+
+
+
+    }
+
+    private void sendComentarios(){
+
+    }
+
 
 }

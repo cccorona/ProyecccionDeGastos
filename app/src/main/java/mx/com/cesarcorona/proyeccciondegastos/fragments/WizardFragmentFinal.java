@@ -26,7 +26,7 @@ public class WizardFragmentFinal extends Fragment implements Step {
 
     public static String TAG = WizardFragmentFinal.class.getSimpleName();
     public static final int SALIR = 1;
-    private static final int AGAIN = 0;
+    public static final int AGAIN = 0;
     private static final int NOT_SELECTED = 9;
     private static final long SPLASH_SCREEN_DELAY = 1000;
 
