@@ -5,13 +5,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -22,8 +28,12 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
+
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,16 +42,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
-import jxl.Cell;
-import jxl.NumberCell;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
-import jxl.write.Number;
 import mx.com.cesarcorona.proyeccciondegastos.R;
 import mx.com.cesarcorona.proyeccciondegastos.adapters.WizardAdapter;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentFinal;
@@ -49,6 +57,7 @@ import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentProyeccion
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoCompartir;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoPersonas;
 import mx.com.cesarcorona.proyeccciondegastos.fragments.WizardFragmentoProyeccionFuturo;
+import mx.com.cesarcorona.proyeccciondegastos.pojo.Comentario;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.RowProyeccion;
 
@@ -68,11 +77,14 @@ public class MainWizardActivity extends AppCompatActivity implements
     public final static int WIZARD_COMPARTIR = 4;
     public final static int WIZARD_FINALIZAR = 5;
 
+    private final static int EMAIL_REQUEST =600;
+
 
 
     private LinkedList<RowProyeccion> rowProyeccions;
 
     private static final String EXCEL_FILE_LOCATION = "file:///assets/files/data.xlsx";
+    public static final String COMENTARIOS_REFERENCE = "comentarios";
 
 
 
@@ -193,9 +205,7 @@ public class MainWizardActivity extends AppCompatActivity implements
 
         }
 
-        if(comentarios != null){
-            sendComentarios();
-        }
+
 
 
 
@@ -245,13 +255,6 @@ public class MainWizardActivity extends AppCompatActivity implements
             tabla.addCell("Primas");
             tabla.addCell("Pesos 2017");
 
-            rowProyeccions = new LinkedList<>();
-            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
-            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
-            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
-            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
-            rowProyeccions.add(new RowProyeccion(4000,4000,2021));
-
 
             for(RowProyeccion fila :rowProyeccions){
                 tabla.addCell(""+fila.getAno());
@@ -268,16 +271,16 @@ public class MainWizardActivity extends AppCompatActivity implements
 
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            FirebaseCrash.report(e);
             OK = false;
         } catch (DocumentException e) {
-            e.printStackTrace();
+            FirebaseCrash.report(e);
             OK = false;
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            FirebaseCrash.report(e);
             OK =false ;
         } catch (IOException e) {
-            e.printStackTrace();
+            FirebaseCrash.report(e);
             OK = false;
         }
 
@@ -293,10 +296,46 @@ public class MainWizardActivity extends AppCompatActivity implements
         emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
         emailIntent .putExtra(Intent.EXTRA_STREAM, path);
         emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Proyeccion" +nombrec);
-        startActivity(Intent.createChooser(emailIntent , "Mandar correo..."));
+        startActivityForResult(Intent.createChooser(emailIntent , "Mandar correo..."),EMAIL_REQUEST);
     }
 
     private void sendComentarios(){
+
+
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference(COMENTARIOS_REFERENCE);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                 finisOrStart();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                FirebaseCrash.log("Error al mandar comentariosn:" + databaseError.getMessage());
+
+            }
+        });
+
+
+        Comentario comentario = new Comentario();
+        comentario.setComentario(comentarios);
+        if(correoElectronico != null){
+            comentario.setCorreoelectronico(correoElectronico);
+        }
+        if(nombrec != null){
+            comentario.setNombrePersona(nombrec);
+        }
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+        comentario.setFecha(formattedDate);
+        database.push().setValue(comentario);
+
+
+
+
+
 
     }
 
@@ -316,8 +355,52 @@ public class MainWizardActivity extends AppCompatActivity implements
         personasAseguradas = new LinkedList<>();
         correoElectronico = null ;
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == EMAIL_REQUEST){
+            if(comentarios != null){
+                sendComentarios();
+
+            }else{
+                finisOrStart();
+            }
+        }
+    }
+
+
+
+    private void finisOrStart(){
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Thread.currentThread()
+                        .setName(this.getClass().getSimpleName() + ": " + Thread.currentThread().getName());
+                if(finalOption == AGAIN){
+                    resetAll();
+                    Intent mainActivityntent = new Intent(MainWizardActivity.this,MainWizardActivity.class);
+                    startActivity(mainActivityntent);
+                    finish();
+                }else{
+                    finish();
+                }
+
+
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(task, 2000);
+
+
 
     }
+
+
 
 
 }

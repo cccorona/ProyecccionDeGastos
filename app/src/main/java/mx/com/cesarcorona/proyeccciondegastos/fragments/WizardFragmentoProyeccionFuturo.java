@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
@@ -160,70 +161,73 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
 
     public void calculateProyeccion(){
            showpDialog();
-        proyeccions = new LinkedList<>();
-        primaCalculada = 0.0 ;
-        primasTotalPorAno = new LinkedHashMap<>();
-        primasTotalSaludReal = new LinkedHashMap<>();
-        primasTotalSaludTotal = new LinkedHashMap<>();
-           for(Person person:persons){
-               if(person.getGenero().equalsIgnoreCase(HOMBRE)){
-                   person.setPrimaCalculada(hombrePrimaOld.get(person.getEdad()));
-               }else{
-                   person.setPrimaCalculada(mujerPrimaOld.get(person.getEdad()));
 
-               }
-               primaCalculada+= person.getPrimaCalculada();
-           }
+        try{
+            proyeccions = new LinkedList<>();
+            primaCalculada = 0.0 ;
+            primasTotalPorAno = new LinkedHashMap<>();
+            primasTotalSaludReal = new LinkedHashMap<>();
+            primasTotalSaludTotal = new LinkedHashMap<>();
+            for(Person person:persons){
+                if(person.getGenero().equalsIgnoreCase(HOMBRE)){
+                    person.setPrimaCalculada(hombrePrimaOld.get(person.getEdad()));
+                }else{
+                    person.setPrimaCalculada(mujerPrimaOld.get(person.getEdad()));
 
-           relacionEntrePrimas = primaCalculada /primaAnual ;
+                }
+                primaCalculada+= person.getPrimaCalculada();
+            }
 
-           for(Person person:persons){
-               for(Integer year:anos.keySet()){
-                   Integer keyYearToSearch = person.getEdad() +anos.get(year) - CURRENT_YEAR ;
-                   if(person.getGenero().equalsIgnoreCase(HOMBRE)){
-                       person.agregarPrimaPorAno(anos.get(year),hombrePrima.get(keyYearToSearch)/relacionEntrePrimas);
-                   }else{
-                       person.agregarPrimaPorAno(anos.get(year),mujerPrima.get(keyYearToSearch)/relacionEntrePrimas);
+            relacionEntrePrimas = primaCalculada /primaAnual ;
 
-                   }
-               }
-           }
+            for(Person person:persons){
+                for(Integer year:anos.keySet()){
+                    Integer keyYearToSearch = person.getEdad() +anos.get(year) - CURRENT_YEAR ;
+                    if(person.getGenero().equalsIgnoreCase(HOMBRE)){
+                        person.agregarPrimaPorAno(anos.get(year),hombrePrima.get(keyYearToSearch)/relacionEntrePrimas);
+                    }else{
+                        person.agregarPrimaPorAno(anos.get(year),mujerPrima.get(keyYearToSearch)/relacionEntrePrimas);
 
-           for(Integer year:anos.keySet()){
-               double sumaTotalPorAno = 0;
-               for(Person person:persons){
-                   sumaTotalPorAno+= person.getPrimaPorAño().get(anos.get(year));
-               }
-               primasTotalPorAno.put(anos.get(year),sumaTotalPorAno);
-           }
+                    }
+                }
+            }
 
-           boolean isFirst = true;
-           int initialKey = 5;
-           for(Integer ano:primasTotalPorAno.keySet()){
+            for(Integer year:anos.keySet()){
+                double sumaTotalPorAno = 0;
+                for(Person person:persons){
+                    sumaTotalPorAno+= person.getPrimaPorAño().get(anos.get(year));
+                }
+                primasTotalPorAno.put(anos.get(year),sumaTotalPorAno);
+            }
 
-               if(isFirst){
-                   primasTotalSaludTotal.put(ano,primasTotalPorAno.get(ano));
-                   primasTotalSaludReal.put(ano,primasTotalPorAno.get(ano));
-                   isFirst = false ;
-               }else {
-                   primasTotalSaludTotal.put(ano,primasTotalPorAno.get(ano) * saludTotal.get(initialKey));
-                   primasTotalSaludReal.put(ano,primasTotalPorAno.get(ano) * saludReal.get(initialKey));
+            boolean isFirst = true;
+            int initialKey = 5;
+            for(Integer ano:primasTotalPorAno.keySet()){
 
-                   initialKey ++ ;
-               }
+                if(isFirst){
+                    primasTotalSaludTotal.put(ano,primasTotalPorAno.get(ano));
+                    primasTotalSaludReal.put(ano,primasTotalPorAno.get(ano));
+                    isFirst = false ;
+                }else {
+                    primasTotalSaludTotal.put(ano,primasTotalPorAno.get(ano) * saludTotal.get(initialKey));
+                    primasTotalSaludReal.put(ano,primasTotalPorAno.get(ano) * saludReal.get(initialKey));
 
-           }
+                    initialKey ++ ;
+                }
 
-
-           for(Integer key:primasTotalSaludTotal.keySet()){
-             proyeccions.add(new RowProyeccion(primasTotalSaludTotal.get(key),primasTotalSaludReal.get(key),
-                     key));
-           }
-
-           proyeccionAdapter = new ProyeccionAdapter(proyeccions,getActivity());
-           proyeccionList.setAdapter(proyeccionAdapter);
+            }
 
 
+            for(Integer key:primasTotalSaludTotal.keySet()){
+                proyeccions.add(new RowProyeccion(primasTotalSaludTotal.get(key),primasTotalSaludReal.get(key),
+                        key));
+            }
+
+            proyeccionAdapter = new ProyeccionAdapter(proyeccions,getActivity());
+            proyeccionList.setAdapter(proyeccionAdapter);
+        }catch (Exception e){
+            FirebaseCrash.report(e);
+        }
 
        hidepDialog();
 
@@ -269,14 +273,13 @@ public class WizardFragmentoProyeccionFuturo extends Fragment implements Step {
                 startCell++;
 
             }
-            Log.e("HOLA.","BOLA");
 
 
         } catch (BiffException e) {
-            Log.d("Inflacacion",e.getMessage());
+            FirebaseCrash.report(e);
 
         } catch (IOException e) {
-            Log.d("Inflacacion",e.getMessage());
+            FirebaseCrash.report(e);
         }
     }
 

@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -36,6 +37,26 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.itextpdf:itextg:5.5.9'
 
+    compile 'com.google.firebase:firebase-crash:10.2.6'
+    compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.google.firebase:firebase-database:10.2.6'
+
+
+
+
+
+
+
+
+
+
     testCompile 'junit:junit:4.12'
     compile project(':jxl')
 }
+
+configurations {
+}
+
+
+apply plugin: 'com.google.gms.google-services'
+

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "97586510334",
+    "firebase_url": "https://proyecciondegastos.firebaseio.com",
+    "project_id": "proyecciondegastos",
+    "storage_bucket": "proyecciondegastos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97586510334:android:81d4dd6baa09b290",
+        "android_client_info": {
+          "package_name": "mx.com.cesarcorona.proyeccciondegastos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97586510334-0q0ee45rm9nshfdt605cvgo1kcidmrs0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVqLB36iS36wEXMfREh6BHZvGNGQimzIY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

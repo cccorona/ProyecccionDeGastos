@@ -66,6 +66,7 @@ public class WizardAdapter extends AbstractFragmentStepAdapter {
                 break;
             case WIZARD_FINALIZAR:
                 step = new WizardFragmentFinal();
+                ((WizardFragmentFinal)step).setLastInterface((WizardFragmentFinal.OnLastInterface) mContext);
                 break;
         }
 
@@ -81,9 +82,41 @@ public class WizardAdapter extends AbstractFragmentStepAdapter {
     @NonNull
     @Override
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
-        //Override this method to set Step title for the Tabs, not necessary for other stepper types
-        return new StepViewModel.Builder(context)
-                .setTitle("Test") //can be a CharSequence instead
-                .create();
+        StepViewModel.Builder builder = new StepViewModel.Builder(context);
+        switch (position) {
+            case 0:
+                builder
+                        .setEndButtonLabel("Siguiente")
+                        .setBackButtonLabel("Cancelar");
+                break;
+            case 1:
+                builder
+                        .setEndButtonLabel("Siguiente")
+                        .setBackButtonLabel("Atras");
+                break;
+            case 2:
+                builder
+                        .setEndButtonLabel("Siguiente")
+                        .setBackButtonLabel("Atras");
+                break;
+            case 3:
+                builder
+                        .setEndButtonLabel("Siguiente")
+                        .setBackButtonLabel("Atras");
+                break;
+            case 4:
+                builder
+                        .setEndButtonLabel("Siguiente")
+                        .setBackButtonLabel("Atras");
+                break;
+            case 5:
+                builder
+                        .setEndButtonLabel("Terminar")
+                        .setBackButtonLabel("Atras");
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported position: " + position);
+        }
+        return builder.create();
     }
 }
