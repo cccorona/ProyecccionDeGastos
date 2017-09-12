@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
@@ -69,6 +70,8 @@ public class WizardFragmentoPersonas extends Fragment implements Step {
         Button plusButton = (Button) v.findViewById(R.id.plus_button);
         final EditText numPersons = (EditText) v.findViewById(R.id.num_persons);
         final ListView listPersoonas = (ListView)v.findViewById(R.id.list_personas);
+
+
         listPersoonas.setAdapter(personAdapter);
         minusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +97,8 @@ public class WizardFragmentoPersonas extends Fragment implements Step {
         });
 
         primaAnualTextView = (EditText) v.findViewById(R.id.prima_anual);
+
+
 
 
 

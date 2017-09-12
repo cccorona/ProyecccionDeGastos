@@ -13,6 +13,7 @@ public class Person implements Serializable {
 
     public static String HOMBRE = "H";
     public static String MUJER ="M";
+    public static String NONE="N";
 
     private int edad;
     private String genero;

@@ -43,12 +43,12 @@
         android:layout_gravity="center"
         android:src="@drawable/ranem2"
         android:layout_margin="10dp"
-        android:layout_width="120dp"
-        android:layout_height="120dp" />
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="30dp">
 
@@ -61,8 +61,70 @@
             android:text="Cifras en pesos"
             android:background="@color/colorAccent"
             android:layout_weight="7"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <LinearLayout
+                android:id="@+id/fondo"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:background="@drawable/white_with_black_border"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:layout_weight=".6"
+                    android:text="Año"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp" />
+                <EditText
+                    android:text="Prima"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:background="@drawable/white_with_black_border"
+                    android:id="@+id/value1"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp" />
+                <EditText
+                    android:editable="false"
+                    android:inputType="none"
+                    android:text="Año"
+                    android:gravity="center"
+                    android:background="@drawable/white_with_black_border"
+                    android:id="@+id/fecha2"
+                    android:layout_weight=".6"
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp" />
+                <EditText
+                    android:background="@drawable/white_with_black_border"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:text="Prima"
+                    android:gravity="center"
+                    android:id="@+id/value2"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
 
 
     </LinearLayout>

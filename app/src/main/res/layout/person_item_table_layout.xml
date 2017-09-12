@@ -21,15 +21,38 @@
             android:layout_width="0dp"
             android:layout_height="40dp" />
         <EditText
-            android:inputType="none"
-            android:editable="false"
+            android:inputType="numberDecimal"
             android:background="@drawable/white_with_black_border"
             android:id="@+id/edad"
             android:layout_weight="1"
             android:padding="5dp"
             android:layout_width="0dp"
             android:layout_height="40dp" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp">
+
+            <CheckBox
+                android:id="@+id/masculino_check"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="M"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <CheckBox
+                android:id="@+id/famenino_check"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="F"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
         <EditText
+            android:visibility="gone"
             android:editable="false"
             android:inputType="none"
             android:background="@drawable/white_with_black_border"

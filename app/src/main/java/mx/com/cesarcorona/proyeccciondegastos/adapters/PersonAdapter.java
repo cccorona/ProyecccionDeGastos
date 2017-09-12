@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
@@ -18,10 +19,12 @@ import java.util.LinkedList;
 import java.util.zip.Inflater;
 
 import mx.com.cesarcorona.proyeccciondegastos.R;
+import mx.com.cesarcorona.proyeccciondegastos.fragments.HomeFragment;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
 
 import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.HOMBRE;
 import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.MUJER;
+import static mx.com.cesarcorona.proyeccciondegastos.pojo.Person.NONE;
 
 /**
  * Created by ccabrera on 15/08/17.
@@ -70,31 +73,94 @@ public class PersonAdapter extends BaseAdapter {
         EditText numero = (EditText) rootView.findViewById(R.id.number);
         EditText edad = (EditText) rootView.findViewById(R.id.edad);
         EditText genero = (EditText) rootView.findViewById(R.id.genero);
+        final CheckBox masculinoCheck,femeninoCheck;
+        masculinoCheck = (CheckBox) rootView.findViewById(R.id.masculino_check);
+        femeninoCheck = (CheckBox) rootView.findViewById(R.id.famenino_check);
 
 
-        edad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               show(position);
+
+        edad.addTextChangedListener(new TextWatcher()
+        {
+            public void afterTextChanged(Editable s) {
+                try{
+                    listaPersonas.get(position).setEdad(Integer.valueOf(s.toString()));
+
+                }catch (Exception e){
+
+                }
+
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
 
 
-        genero.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+
+        masculinoCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showGenders(position);
+
+                String genero = listaPersonas.get(position).getGenero();
+                if(HOMBRE.equalsIgnoreCase(genero)){
+                    masculinoCheck.setChecked(false);
+                    listaPersonas.get(position).setGenero(NONE);
+                }else if(MUJER.equalsIgnoreCase(genero)){
+                    masculinoCheck.setChecked(true);
+                    listaPersonas.get(position).setGenero(HOMBRE);
+                    femeninoCheck.setChecked(false);
+                }else{
+                    masculinoCheck.setChecked(true);
+                    femeninoCheck.setChecked(false);
+                    listaPersonas.get(position).setGenero(HOMBRE);
+                }
+
+                notifyDataSetChanged();
+
             }
         });
+
+        femeninoCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String genero = listaPersonas.get(position).getGenero();
+                if(HOMBRE.equalsIgnoreCase(genero)){
+                    masculinoCheck.setChecked(false);
+                    femeninoCheck.setChecked(true);
+                    listaPersonas.get(position).setGenero(MUJER);
+                }else if(MUJER.equalsIgnoreCase(genero)){
+                    masculinoCheck.setChecked(true);
+                    listaPersonas.get(position).setGenero(NONE);
+                    femeninoCheck.setChecked(false);
+                }else{
+                    femeninoCheck.setChecked(true);
+                    masculinoCheck.setChecked(false);
+                    listaPersonas.get(position).setGenero(MUJER);
+                }
+
+                notifyDataSetChanged();
+
+            }
+        });
+
+
+
 
         numero.setText(""+(1+position));
         edad.setText(""+listaPersonas.get(position).getEdad());
         genero.setText("");
         if(listaPersonas.get(position).getGenero().equalsIgnoreCase(HOMBRE)){
-            genero.setText("M");
+            masculinoCheck.setChecked(true);
+            femeninoCheck.setChecked(false);
 
         }else if(listaPersonas.get(position).getGenero().equalsIgnoreCase(MUJER)){
-            genero.setText("F");
+            femeninoCheck.setChecked(true);
+            masculinoCheck.setChecked(false);
         }
 
         return rootView;

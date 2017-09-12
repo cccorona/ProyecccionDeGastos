@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Locale;
 
 import mx.com.cesarcorona.proyeccciondegastos.R;
 import mx.com.cesarcorona.proyeccciondegastos.pojo.Person;
@@ -70,9 +72,9 @@ public class ProyeccionAdapter extends BaseAdapter {
         EditText value2 = (EditText) rootView.findViewById(R.id.value2);
 
         fecha1.setText(""+listaproyecciones.get(position).getAno());
-        value1.setText(""+(int)listaproyecciones.get(position).getPesos());
+        value1.setText("$"+ NumberFormat.getNumberInstance(Locale.US).format((int)listaproyecciones.get(position).getPesos()));
         fecha2.setText(""+listaproyecciones.get(position+10).getAno());
-        value2.setText(""+(int)listaproyecciones.get(position+10).getPesos());
+        value2.setText("$"+NumberFormat.getNumberInstance(Locale.US).format((int)listaproyecciones.get(position+10).getPesos()));
         return rootView;
 
     }

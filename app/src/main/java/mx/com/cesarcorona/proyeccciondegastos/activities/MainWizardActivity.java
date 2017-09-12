@@ -141,7 +141,7 @@ public class MainWizardActivity extends AppCompatActivity implements
 
     @Override
     public void onStepSelected(int newStepPosition) {
-        Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show();
         if(newStepPosition == WIZARD_PROYECCION){
                  WizardFragmentoProyeccionFuturo step = (WizardFragmentoProyeccionFuturo) mStepperLayout.getAdapter().findStep(WIZARD_PROYECCION);
                  step.setPersons(personasAseguradas);

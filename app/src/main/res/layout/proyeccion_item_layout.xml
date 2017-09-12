@@ -17,7 +17,7 @@
             android:inputType="none"
             android:editable="false"
             android:id="@+id/fecha1"
-            android:layout_weight="1"
+            android:layout_weight=".6"
             android:padding="5dp"
             android:layout_width="0dp"
             android:layout_height="40dp" />
@@ -35,7 +35,7 @@
             android:inputType="none"
             android:background="@drawable/white_with_black_border"
             android:id="@+id/fecha2"
-            android:layout_weight="1"
+            android:layout_weight=".6"
             android:padding="5dp"
             android:layout_width="0dp"
             android:layout_height="40dp" />
