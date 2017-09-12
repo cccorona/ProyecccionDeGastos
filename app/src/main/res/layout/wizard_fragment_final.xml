@@ -32,8 +32,8 @@
         android:layout_gravity="center"
         android:src="@drawable/ranem2"
         android:layout_margin="10dp"
-        android:layout_width="120dp"
-        android:layout_height="120dp" />
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
 
 
     <LinearLayout
@@ -67,10 +67,24 @@
         android:layout_marginLeft="30dp"
         android:background="@drawable/white_rounded"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="100dp" />
+
+    <Button
+        android:id="@+id/comentario_button"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:hint="Enviar comentario"
+        android:maxLines="10"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/white_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
 
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp">
@@ -105,6 +119,7 @@
 
 
                 <TextView
+                    android:id="@+id/nueva_proyeccion_button"
                     android:textColor="#FFF"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -121,6 +136,7 @@
                 android:layout_height="0dp">
 
                 <TextView
+                    android:id="@+id/salir_button"
                     android:textColor="#FFF"
                     android:textStyle="bold"
                     android:gravity="center"

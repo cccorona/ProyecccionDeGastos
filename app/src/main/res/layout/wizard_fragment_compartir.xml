@@ -13,8 +13,8 @@
         android:layout_gravity="center"
         android:src="@drawable/ranem2"
         android:layout_margin="10dp"
-        android:layout_width="120dp"
-        android:layout_height="120dp" />
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
 
 
     <TextView
@@ -112,6 +112,16 @@
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/enviarCorreo"
+        android:text="Enviar correo"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/white_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
 
 

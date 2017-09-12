@@ -152,6 +152,9 @@ public class MainWizardActivity extends AppCompatActivity implements
             WizardFragmentProyeccionPasada step = (WizardFragmentProyeccionPasada) mStepperLayout.getAdapter().findStep(WIZARD_PROYECCION_PASADA);
             step.setProyeccions(rowProyeccions);
             step.loadProyeccion();
+        }else if(newStepPosition == WIZARD_COMPARTIR){
+            WizardFragmentoCompartir step = (WizardFragmentoCompartir)mStepperLayout.getAdapter().findStep(WIZARD_COMPARTIR);
+            step.setProyeccions(rowProyeccions);
         }
 
     }
